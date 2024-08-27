@@ -1,0 +1,165 @@
+<ion-view ng-init="setInput()" view-title="Tipping Jar Widget">
+  	<ion-content class="page padding">
+  		<div class="wgt-contain">
+  			<div class="btn-contain padding text-right">
+  				<button ng-click="emptyJar()" class="button button-positive">Empty Jar</button>
+  				<button ng-click="sendTest()" class="button button-positive">Send Test</button>
+  			</div>
+  			<div class="opt-contain padding">
+  				<h3>Skin:</h3>
+  				<div class="glass-contain">
+  					<div class="cup-contain">
+  						<div ng-class="{'activeCup': input.cup.name === cup.name}" ng-click="input.cup = cup;" ng-repeat="cup in cups track by $index" style="background:url(img/{{cup.name}}.png) no-repeat; background-size: contain; background-position:50% 50%; height: 180px; width: 180px; margin: 10px; display:inline-block;"></div>
+  					</div>
+  				</div>
+  				<div class="row">
+  					<div class="col">
+  						<h3>Type:</h3>
+  						<div class="row">
+  							<div class="col">
+	  							<ion-list>
+	  								<ion-checkbox ng-model="actions[0].selected">{{ actions[0].name }}</ion-checkbox>
+	  								<ion-checkbox ng-model="actions[1].selected">{{ actions[1].name }}</ion-checkbox>
+	  								<ion-checkbox ng-model="actions[2].selected">{{ actions[2].name }}</ion-checkbox>
+									<ion-checkbox ng-model="actions[3].selected">{{ actions[3].name }}</ion-checkbox>
+									<ion-checkbox ng-model="actions[4].selected">{{ actions[4].name }}</ion-checkbox>
+									<ion-checkbox ng-model="actions[5].selected">{{ actions[5].name }}</ion-checkbox>
+									<ion-checkbox ng-model="actions[6].selected">{{ actions[6].name }}</ion-checkbox>
+	  							</ion-list>
+  							</div>
+  							<div class="col">
+								<div ng-repeat="act in actions track by $index">  					  							
+		  							<label class="item item-input">
+									    <span class="input-label">{{act.field}}</span>
+									    <input type="text" ng-model="act.amount">
+									</label>
+  								</div>		
+							</div>
+  						</div>
+  					</div>
+  					<div class="col">
+  						<h3>Text:</h3>
+  						<div class="row">
+  							<div class="col">
+							  	<label class="item item-input item-select">
+								    <div class="input-label">
+								        Font
+								    </div>
+								    <select ng-model="input.text.font">
+									    <option 
+									      	ng-repeat="font in fonts track by $index"
+									      	ng-value="font.value"
+									    >{{ font.name }}</option>								      
+								    </select>
+							 	</label>
+							  	<label class="item item-input item-select">
+								    <div class="input-label">
+								        Effect
+								    </div>
+								    <select ng-model="input.text.effect">
+								      <option ng-repeat="eff in textEffects track by $index" ng-value="eff.name">{{eff.name}}</option>
+								    </select>
+							 	</label>
+							  	<label class="item item-input item-select">
+								    <div class="input-label">
+								        Size
+								    </div>
+								    <select ng-model="input.text.size">
+								      <option ng-repeat="f in fontSize track by $index" ng-value="f.value + ',' + f.anchorY">{{f.name}}</option>
+								    </select>
+							 	</label>
+							  	<label class="item item-input item-select">
+								    <div class="input-label">
+								        Weight
+								    </div>
+								    <select ng-model="input.text.weight">
+								      <option ng-repeat="w in weights track by $index" ng-value="w.value">{{w.name}}</option>
+								    </select>
+							 	</label>
+							  	<label class="item item-input item-select">
+								    <div class="input-label">
+								        Text Background Skin
+								    </div>
+								    <select ng-model="input.text.background">
+								      <option ng-repeat="w in textBg track by $index" ng-value="w.url">{{w.name}}</option>
+								    </select>
+							 	</label>
+  							</div>
+  							<div class="col">
+  								<label class="item item-input item-color">
+								    <div class="input-label">
+								        Color
+								    </div>
+								    <input
+									    minicolors="customSettings"
+									    id="color-input"
+									    class="form-control"
+									    type="text"
+									    ng-model="input.text.color">
+							 	</label>
+  								<label class="item item-input item-color">
+								    <div class="input-label">
+								        Color
+								    </div>
+								    <input
+									    minicolors="customSettings"
+									    id="color-input"
+									    class="form-control"
+									    type="text"
+									    ng-model="input.text.effectColor">
+							 	</label>
+							 	<label class="item item-input item-color">
+								    <div class="input-label">
+								        Background
+								    </div>
+								    <input
+									    minicolors="customSettings"
+									    id="color-input"
+									    class="form-control"
+									    type="text"
+									    ng-model="input.bgColor">
+							 	</label>
+							 	<label class="item item-input item-color padding">
+								    <br/>
+							 	</label>
+							 	<label class="item item-input item-color">
+								    <div class="input-label">
+								        Skin Preview
+								    </div>
+								    <div class="bg-skin-pv" style="background: url({{input.text.background}}) repeat-x; background-size:cover; background-position: 50% 50%;"></div>							 		
+							 	</label> 
+  							</div>
+  						</div>
+  						<div class="row">
+							<div class="col">
+								  <label class="item item-input">
+								    <span class="input-label"><b>Minimum Tips:</b></span>
+								    <input type="text" ng-model="input.minTips">
+								  </label>
+								  <label class="item item-input">
+								    <span class="input-label"><b>Minimum Bits:</b></span>
+								    <input type="text" ng-model="input.minBits">
+								  </label>
+								  <label class="item item-input">
+								    <span class="input-label"><b>Username:</b></span>
+								    <input type="text" ng-model="	input.user">
+								  </label>
+							</div>
+							<div class="col">
+								<ion-checkbox style="cursor:pointer;" ng-model="input.isTextVisible"><b>Show Text</b></ion-checkbox>
+							    <ion-checkbox style="cursor:pointer; padding-bottom: 10px;" ng-model="input.isBgTransparent"><b>Make Transparent</b></ion-checkbox>
+							    <ion-checkbox style="cursor:pointer; padding-bottom: 10px;" ng-model="input.showOverflow"><b>Show Overflow</b></ion-checkbox>
+							</div>
+						</div>
+  						<div class="row padding-top">
+							<div class="col text-right">
+				  				<button ng-click="saveSettings()" class="button button-positive">Save Settings</button>
+				  				<button ng-click="sendInput()" class="button button-positive">View in New Window</button>
+				  			</div>
+						</div>
+  					</div>				
+				</div>
+  			</div>
+  		</div>
+	</ion-content>
+</ion-view>
